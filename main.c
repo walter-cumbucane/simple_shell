@@ -4,6 +4,17 @@
 #include <string.h>
 #include <sys/wait.h>
 
+
+
+
+
+
+
+
+
+
+
+
 /**
  * main - super simple shell, taking commands and only exits on EOF or Ctrl-D
  * @ac: argument count
@@ -11,12 +22,13 @@
  * @env: environment variable
  *
  * Return: Always zero on success, else exits on execution errro
- */
+*/
+
 int main(int ac, char **av, char **env)
 {
-	char *line, *args[2];
+	char *line, *line_copy, **args;
 	size_t len = 0;
-	int exec, status;
+	int exec, status, result;
 	pid_t pid;
 
 	while (1) /* looping the prompt */
@@ -25,15 +37,16 @@ int main(int ac, char **av, char **env)
 			write(1, "$ ", 2);
 		if (getline(&line, &len, stdin) == -1)
 			exit(98);
-		strtok(line, "\n");
-		strtok(line, " ");
-		args[0] = line;
-		args[1] = strtok(NULL, " ");
-		args[2] = NULL;
+		line_copy = malloc(sizeof(line));
+		_strcpy(line_copy, line);
+		result = count_tokens(line_copy);
+		args = malloc(sizeof(char *) * result);
+		tokenization(args, line);
 		pid = fork();
 		if (pid == 0)
 		{
 			exec = execve(args[0], args, env); /* calling for execution of command/s */
+			free_this(args, line_copy);
 			if (exec == -1)
 			{
 				write(1, "./shell: No such file or directory\n", 35);
@@ -41,9 +54,15 @@ int main(int ac, char **av, char **env)
 			}
 		}
 		else if (pid > 0)
+		{
 			wait(&status);
+			free_this(args, line_copy);
+		}
 		else
+		{
+			free_this(args, line_copy);
 			perror("Error:");
+		}
 	}
 	free(line);
 	return (0);
