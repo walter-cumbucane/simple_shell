@@ -1,5 +1,7 @@
 #ifndef SHELL_H
 #define SHELL_H
+#include <stdlib.h>
+#include <string.h>
 
 int _strlen(char *s);
 char *_strcpy(char *dest, char *src);

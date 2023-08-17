@@ -11,7 +11,6 @@
 int count_tokens(char *line_copy)
 {
 	int count = 0;
-	int i;
 	char *token;
 
 	token = strtok(line_copy, " \n");

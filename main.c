@@ -1,19 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
 #include <sys/wait.h>
-
-
-
-
-
-
-
-
-
-
-
+#include "shell.h"
 
 /**
  * main - super simple shell, taking commands and only exits on EOF or Ctrl-D
@@ -24,11 +12,12 @@
  * Return: Always zero on success, else exits on execution errro
 */
 
-int main(int ac, char **av, char **env)
+int main(void)
 {
+	extern char **environ;
 	char *line, *line_copy, **args;
-	size_t len = 0;
 	int exec, status, result;
+	size_t len = 0;
 	pid_t pid;
 
 	while (1) /* looping the prompt */
@@ -45,7 +34,7 @@ int main(int ac, char **av, char **env)
 		pid = fork();
 		if (pid == 0)
 		{
-			exec = execve(args[0], args, env); /* calling for execution of command/s */
+			exec = execve(args[0], args, environ); /* calling for execution of command/s */
 			free_this(args, line_copy);
 			if (exec == -1)
 			{
