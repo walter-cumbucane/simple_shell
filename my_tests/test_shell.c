@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,19 +22,21 @@ int main(int ac, char **av, char **env)
 	while (1) /* looping the prompt */
 	{
 		if (isatty(STDIN_FILENO))
-			write(stdout, "$ ", 2);
+			write(1, "$ ", 2);
 		if (getline(&line, &len, stdin) == -1)
 			exit(98);
 		strtok(line, "\n");
+		strtok(line, " ");
 		args[0] = line;
-		args[1] = NULL;
+		args[1] = strtok(NULL, " ");
+		args[2] = NULL;
 		pid = fork();
 		if (pid == 0)
 		{
 			exec = execve(args[0], args, env); /* calling for execution of command/s */
 			if (exec == -1)
 			{
-				write(stdout, "./shell: No such file or directory\n", 35);
+				write(1, "./shell: No such file or directory\n", 35);
 				exit(98);
 			}
 		}
