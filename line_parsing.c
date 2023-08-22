@@ -44,3 +44,34 @@ void tokenization(char **args, char *line)
 	}
 	args[i] = NULL;
 }
+
+/**
+ * check_if_is_empty -whether the line prompted by the user is empty or not
+ * @line: the line prompted by the user
+ *
+ * Return: 1 if it is empty or 0 if it isn't empty
+ */
+
+int check_if_is_empty(char *line)
+{
+	int i, len;
+	char *line_copy;
+
+	line_copy = malloc(_strlen(line) + 1);
+	_strcpy(line_copy, line);
+	strtok(line_copy, "\n");
+	len = _strlen(line_copy);
+	i = 0;
+	while (i < len)
+	{
+		if (*(line + i) != ' ')
+		{
+			free(line_copy);
+			return (0);
+		}
+		i++;
+	}
+	free(line_copy);
+	free(line);
+	return (1);
+}

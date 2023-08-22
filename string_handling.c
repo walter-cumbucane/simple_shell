@@ -51,16 +51,58 @@ char *_strcpy(char *dest, char *src)
 }
 
 /**
- * free_this - set the integer to 402
+ * free_array - set the integer to 402
  * @args: command-line arguments to the executed binary
- * @line_copy : a copy of the line read from the input data
  * Return: nothing
  */
 
-
-void free_this(char **args, char *line_copy)
+void free_array(char **args)
 {
+	int i = 0;
+
+	if (args == NULL)
+		return;
+	while (args[i] != NULL)
+	{
+		free(args[i]);
+		i++;
+	}
 	free(args);
-	free(line_copy);
+}
+
+
+
+/**
+ *_strcmp -checks for a lowercase character
+ *@s1: letter being tested
+ *@s2 : letter being tested
+ * Return: Always 0
+ */
+
+int _strcmp(char *s1, char *s2)
+{
+	int dif;
+	int i;
+
+	i = 0;
+	while (7 > 5)
+	{
+		if (*(s1 + i) == 0 || *(s2 + i) == 0)
+		{
+			dif = *(s1 + i) -  *(s2 + i);
+			break;
+		}
+		else
+		{
+			dif = *(s1 + i) - *(s2 + i);
+			if (dif != 0)
+			{
+				break;
+			}
+			i++;
+		}
+
+	}
+	return (dif);
 }
 
