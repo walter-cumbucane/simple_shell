@@ -17,6 +17,7 @@
 void parse_line(char *line, char **args)
 {
 	int i = 0;
+
 	strtok(line, "\n");
 	args[i] = strtok(line, " ");
 	while (args[i] != NULL)
