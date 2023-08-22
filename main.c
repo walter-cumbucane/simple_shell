@@ -12,7 +12,7 @@
 int main(int ac, char **av, char **env)
 {
 	char *line, *line_copy, **args;
-	int result;
+	int result, child_status;
 	size_t len = 20;
 	pid_t pid;
 
@@ -39,10 +39,12 @@ int main(int ac, char **av, char **env)
 		args = malloc(sizeof(char *) * result);
 		tokenization(args, line);
 		pid = fork();
-		execute_command(pid, env, args);
+		child_status = execute_command(pid, env, args);
 		free_array(args);
 		free(line);
 		free(line_copy);
+		if (!isatty(0))
+			return (child_status);
 	}
-	return (0);
+	return (child_status);
 }
