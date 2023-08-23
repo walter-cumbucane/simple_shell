@@ -25,26 +25,25 @@ int main(int ac, char **av, char **env)
 		if (getline(&line, &len, stdin) == -1)
 		{
 			free(line);
-			exit(0);
+			exit(127);
 		}
 		if (check_if_is_empty(line) == 1)
 			continue;
-		if (isexit(line) == 1)
-			exit(0);
 		if (isenv(env, line) == 1)
 			continue;
 		line_copy = malloc(_strlen(line) + 1);
+		check_if_error(line_copy);
 		_strcpy(line_copy, line);
 		result = count_tokens(line_copy);
 		args = malloc(sizeof(char *) * result);
+		check_if_error_array(args);
 		tokenization(args, line);
+		handle_exit(args, line, line_copy);
 		pid = fork();
 		child_status = execute_command(pid, env, args);
-		free_array(args);
-		free(line);
-		free(line_copy);
+		free_array(args, line, line_copy);
 		if (!isatty(0))
-			return (child_status);
+			exit(child_status);
 	}
 	return (child_status);
 }

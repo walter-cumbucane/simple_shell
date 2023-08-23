@@ -53,10 +53,12 @@ char *_strcpy(char *dest, char *src)
 /**
  * free_array - set the integer to 402
  * @args: command-line arguments to the executed binary
+ * @line : line prompted by the user
+ * @line_copy : copy of the line prompted by the user
  * Return: nothing
  */
 
-void free_array(char **args)
+void free_array(char **args, char *line, char *line_copy)
 {
 	int i = 0;
 
@@ -68,6 +70,8 @@ void free_array(char **args)
 		i++;
 	}
 	free(args);
+	free(line);
+	free(line_copy);
 }
 
 

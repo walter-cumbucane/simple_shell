@@ -21,12 +21,12 @@ int execute_command(pid_t pid, char **envin, char **args)
 		if (exec == -1)
 		{
 			write(2, "./shell: No such file or directory\n", 35);
-			exit(2);
+			exit(127);
 		}
 	}
 	else if (pid > 0)
 	{
-		wait(&child_status);
+		waitpid(pid, &child_status, 0);
 		if (WIFEXITED(child_status))
 		{
 			return (WEXITSTATUS(child_status));
@@ -36,7 +36,7 @@ int execute_command(pid_t pid, char **envin, char **args)
 	else
 	{
 		write(2, "Error:", 6);
-		return (2);
+		return (1);
 	}
 	return (2);
 }

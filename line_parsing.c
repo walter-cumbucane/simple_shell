@@ -39,6 +39,7 @@ void tokenization(char **args, char *line)
 	for (i = 0; token != NULL; i++)
 	{
 		args[i] = malloc(sizeof(char) * _strlen(token));
+		check_if_error(args[i]);
 		_strcpy(args[i], token);
 		token = strtok(NULL, " \n");
 	}
@@ -58,6 +59,7 @@ int check_if_is_empty(char *line)
 	char *line_copy;
 
 	line_copy = malloc(_strlen(line) + 1);
+	check_if_error(line_copy);
 	_strcpy(line_copy, line);
 	strtok(line_copy, "\n");
 	len = _strlen(line_copy);
