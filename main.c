@@ -25,7 +25,7 @@ int main(int ac, char **av, char **env)
 		if (getline(&line, &len, stdin) == -1)
 		{
 			free(line);
-			exit(127);
+			exit(0);
 		}
 		if (check_if_is_empty(line) == 1)
 			continue;
