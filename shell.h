@@ -14,7 +14,7 @@ void tokenization(char **args, char *line);
 int _strcmp(char *s1, char *s2);
 int isexit(char *line);
 int isenv(char **envin, char *line);
-void execute_command(pid_t pid, char **envin, char **args);
+int execute_command(pid_t pid, char **envin, char **args);
 int check_if_is_empty(char *line);
 void free_array(char **args);
 
