@@ -8,7 +8,7 @@
  */
 
 
-int count_tokens(char *line_copy)
+int count_tokens(char *line_copy, char *line)
 {
 	int count = 0;
 	char *token;
@@ -18,6 +18,12 @@ int count_tokens(char *line_copy)
 	{
 		count++;
 		token = strtok(NULL, " \n");
+	}
+	if (count == 0)
+	{
+		free(line_copy);
+		free(line);
+		return (-1);
 	}
 	return (count);
 }

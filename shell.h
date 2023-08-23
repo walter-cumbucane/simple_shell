@@ -8,7 +8,7 @@
 
 int _strlen(char *s);
 char *_strcpy(char *dest, char *src);
-int count_tokens(char *line_copy);
+int count_tokens(char *line_copy, char *line);
 void free_this(char **args, char *line_copy);
 void tokenization(char **args, char *line);
 int _strcmp(char *s1, char *s2);

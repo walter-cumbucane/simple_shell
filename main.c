@@ -34,7 +34,9 @@ int main(int ac, char **av, char **env)
 		line_copy = malloc(_strlen(line) + 1);
 		check_if_error(line_copy);
 		_strcpy(line_copy, line);
-		result = count_tokens(line_copy);
+		result = count_tokens(line_copy, line);
+		if (result == -1)
+			continue;
 		args = malloc(sizeof(char *) * result);
 		check_if_error_array(args);
 		tokenization(args, line);
