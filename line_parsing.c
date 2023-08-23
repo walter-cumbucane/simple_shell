@@ -3,7 +3,7 @@
 /**
  * count_tokens - counts the number of tokens of the read line
  * @line_copy: a copy of the line read from the input
- *
+ * @line : the line prompted by the user
  * Return: the number of tokens of the read string
  */
 
