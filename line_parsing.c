@@ -40,20 +40,16 @@ int count_tokens(char *line_copy, char *line)
 void tokenization(char **args, char *line)
 {
 	int i;
-	char *token = NULL, *test = NULL;
+	char *token = NULL;
 
 	token = strtok(line, " \n");
-	test = malloc(sizeof(token));
-	check_if_error(test);
-	_strcpy(test, token);
 	for (i = 0; token != NULL; i++)
 	{
-		args[i] = malloc(sizeof(char) * _strlen(token));
+		args[i] = malloc((sizeof(char) * _strlen(token)) + 1);
 		check_if_error(args[i]);
 		_strcpy(args[i], token);
 		token = strtok(NULL, " \n");
 	}
-	free(test);
 	free(token);
 	args[i] = NULL;
 }
