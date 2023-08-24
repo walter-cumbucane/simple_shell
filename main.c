@@ -29,6 +29,7 @@ int main(int ac, char **av, char **env)
 		}
 		if (check_if_is_empty(line) == 1)
 			continue;
+		check_exit(line, err);
 		if (isenv(env, line) == 1)
 			continue;
 		line_copy = malloc(_strlen(line) + 1);
@@ -40,7 +41,6 @@ int main(int ac, char **av, char **env)
 		args = malloc(sizeof(char *) * result);
 		check_if_error_array(args);
 		tokenization(args, line);
-		check_exit(args, line, line_copy, err);
 		err = check_command(args, line, line_copy, av);
 		if (err == 127)
 			continue;

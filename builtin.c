@@ -2,15 +2,24 @@
 
 /**
  * isexit - checks whether the user prompted the exit command or not
- * @command: the line prompted by the user
+ * @line: the line prompted by the user
  *
  * Return: 1 if the user prompted exit, 0 otherwise.
  */
 
-int isexit(char *command)
+int isexit(char *line)
 {
-	if (_strcmp(command, "exit") == 0)
+	char *line_copy;
+
+	line_copy = malloc(_strlen(line) + 1);
+	_strcpy(line_copy, line);
+	strtok(line_copy, " \n");
+	if (_strcmp(line_copy, "exit") == 0)
+	{
+		free(line_copy);
 		return (1);
+	}
+	free(line_copy);
 	return (0);
 }
 
@@ -48,30 +57,28 @@ int isenv(char **envin, char *line)
 
 /**
  * check_exit - set the integer to 402
- * @args: command-line arguments to the executed binary
  * @line : line prompted by the user
- * @copy_line : a copy of the line prompted by the user
  * @err : exit controller
  * Return: nothing
  */
 
-void check_exit(char **args, char *line, char *copy_line, int err)
+void check_exit(char *line, int err)
 {
-	if (isexit(args[0]) == 1)
+	if (isexit(line) == 1)
 	{
 		if (err == 0)
 		{
-			free_array(args, line, copy_line);
+			free(line);
 			exit(0);
 		}
 		else if (err == 2)
 		{
-			free_array(args, line, copy_line);
+			free(line);
 			exit(2);
 		}
 		else if (err == 127)
 		{
-			free_array(args, line, copy_line);
+			free(line);
 			exit(127);
 		}
 	}

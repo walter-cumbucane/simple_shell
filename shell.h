@@ -19,7 +19,7 @@ int check_if_is_empty(char *line);
 void free_array(char **args, char *line, char *line_copy);
 void check_if_error(char *s);
 void check_if_error_array(char **s);
-void check_exit(char **args, char *line, char *line_copy, int err);
+void check_exit(char *line, int err);
 int check_command(char **args, char *line, char *line_copy, char **av);
 
 #endif
