@@ -38,7 +38,7 @@ int main(int ac, char **av, char **env)
 		result = count_tokens(line_copy, line);
 		if (result == -1)
 			continue;
-		args = malloc(sizeof(char *) * result);
+		args = malloc((sizeof(char *)) * (result + 1));
 		check_if_error_array(args);
 		tokenization(args, line);
 		err = check_command(args, line, line_copy, av);
