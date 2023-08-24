@@ -60,15 +60,12 @@ char *_strcpy(char *dest, char *src)
 
 void free_array(char **args, char *line, char *line_copy)
 {
-	int i = 0;
+	int i;
 
 	if (args == NULL)
 		return;
-	while (args[i] != NULL)
-	{
+	for (i = 0; args[i]; i++)
 		free(args[i]);
-		i++;
-	}
 	free(args);
 	free(line);
 	free(line_copy);

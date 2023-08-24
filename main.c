@@ -11,8 +11,8 @@
 
 int main(int ac, char **av, char **env)
 {
-	char *line, *line_copy, **args;
-	int result, child_status;
+	char *line, *line_copy = NULL, **args = NULL;
+	int result, err = 0;
 	size_t len = 20;
 	pid_t pid;
 
@@ -25,7 +25,7 @@ int main(int ac, char **av, char **env)
 		if (getline(&line, &len, stdin) == -1)
 		{
 			free(line);
-			exit(0);
+			exit(err);
 		}
 		if (check_if_is_empty(line) == 1)
 			continue;
@@ -40,12 +40,13 @@ int main(int ac, char **av, char **env)
 		args = malloc(sizeof(char *) * result);
 		check_if_error_array(args);
 		tokenization(args, line);
-		handle_exit(args, line, line_copy);
+		check_exit(args, line, line_copy, err);
+		err = check_command(args, line, line_copy, av);
+		if (err == 127)
+			continue;
 		pid = fork();
-		child_status = execute_command(pid, env, args);
+		err = execute_command(pid, env, args, err);
 		free_array(args, line, line_copy);
-		if (!isatty(0))
-			exit(child_status);
 	}
-	return (child_status);
+	return (err);
 }

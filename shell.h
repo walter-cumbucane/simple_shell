@@ -14,12 +14,12 @@ void tokenization(char **args, char *line);
 int _strcmp(char *s1, char *s2);
 int isexit(char *line);
 int isenv(char **envin, char *line);
-int execute_command(pid_t pid, char **envin, char **args);
+int execute_command(pid_t pid, char **envin, char **args, int err);
 int check_if_is_empty(char *line);
 void free_array(char **args, char *line, char *line_copy);
 void check_if_error(char *s);
 void check_if_error_array(char **s);
-int check_exit(char **args, char *line, char *line_copy);
-void handle_exit(char **args, char *line, char *line_copy);
+void check_exit(char **args, char *line, char *line_copy, int err);
+int check_command(char **args, char *line, char *line_copy, char **av);
 
 #endif
