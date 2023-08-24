@@ -14,7 +14,7 @@ void check_if_error(char *s)
 	if (s == NULL)
 	{
 		write(2, "Out of memory", _strlen("Out of memory"));
-		exit(127);
+		exit(1);
 	}
 }
 
@@ -30,6 +30,6 @@ void check_if_error_array(char **s)
 	if (s == NULL)
 	{
 		write(2, "Out of memory", _strlen("Out of memory"));
-		exit(127);
+		exit(1);
 	}
 }

@@ -16,7 +16,7 @@ int main(int ac, char **av, char **env)
 	size_t len = 20;
 	pid_t pid;
 
-	(void)ac, (void)av;
+	(void)ac;
 	while (1) /* looping the prompt */
 	{
 		if (isatty(STDIN_FILENO))
